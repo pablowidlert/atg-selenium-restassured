@@ -47,11 +47,11 @@ Download and install [Apache Maven 3.9.6](https://maven.apache.org/download.cgi)
 -   This project implements one page and four components, with one test specification.
 -   Tests are executed locally (HEADED) with:
     ```bash
-    mvn test
+    mvn clean test
     ```
 -   Tests are executed locally (HEADLESS) with:
     ```bash
-    mvn test -Dheadless=true
+    mvn clean test -Dheadless=true
     ```
 
 ## Reporting of the results

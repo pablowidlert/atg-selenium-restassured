@@ -30,6 +30,7 @@ public class PetEndpointsTest extends BaseTest {
     private final Pet fullDataPet = TestDataUtil.generateFullDataPet();
     PetController petController = new PetController();
 
+    @Tag("upload")
     @DisplayName("Upload an image for a pet")
     @Test
     public void uploadImageToPet() throws IOException {
@@ -46,6 +47,7 @@ public class PetEndpointsTest extends BaseTest {
         );
     }
 
+    @Tag("create")
     @DisplayName("Add a new pet to the store")
     @Test
     public void createAPet() {
@@ -61,6 +63,7 @@ public class PetEndpointsTest extends BaseTest {
         );
     }
 
+    @Tag("update")
     @DisplayName("Updates an existing pet in the store")
     @Test
     public void updateAPet() {
@@ -79,6 +82,7 @@ public class PetEndpointsTest extends BaseTest {
         );
     }
 
+    @Tag("get")
     @DisplayName("Find pets by status")
     @Test
     public void getPetsByStatus() {
@@ -100,6 +104,7 @@ public class PetEndpointsTest extends BaseTest {
 
     }
 
+    @Tag("get")
     @DisplayName("Find a pet by id")
     @Test
     public void getPetById() {
@@ -116,6 +121,7 @@ public class PetEndpointsTest extends BaseTest {
         );
     }
 
+    @Tag("update")
     @DisplayName("Updates a pet with form data")
     @Test
     public void updatePetByIdWithFormData() {
@@ -135,6 +141,7 @@ public class PetEndpointsTest extends BaseTest {
         );
     }
 
+    @Tag("delete")
     @DisplayName("Delete a pet by id")
     @Test
     public void deletePetById() {
@@ -155,6 +162,8 @@ public class PetEndpointsTest extends BaseTest {
         );
     }
 
+    @Tag("delete")
+    @Tag("me")
     @DisplayName("Fails to delete a pet by id on second attempt")
     @Test
     public void deletePetByIdFails() {

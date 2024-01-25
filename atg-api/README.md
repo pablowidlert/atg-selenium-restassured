@@ -39,8 +39,22 @@ Download and install [Apache Maven 3.9.6](https://maven.apache.org/download.cgi)
 -   This project implements one page and four components, with one test specification.
 -   Tests are executed locally with:
     ```bash
-    mvn test
+    mvn clean test
     ```
+-   Tests can also be executed locally with tag filtering as described [here](https://junit.org/junit5/docs/snapshot/user-guide/#running-tests-tag-expressions
+    ):
+    - For all tests tagged 'get' plus all tests tagged 'delete'
+        ```
+         mvn clean test -DtestTags="get | delete"
+        ```
+    - For all tests tagged with 'delete' and 'pet'
+        ```
+         mvn clean test -DtestTags="delete & pet"
+        ```
+    - For tests all tests for pet, except those tagged delete
+        ```
+         mvn clean test -DtestTags="pet & ! delete"
+        ```
 
 ### Reporting of the results
 
