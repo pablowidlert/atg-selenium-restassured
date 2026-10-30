@@ -54,15 +54,6 @@ jobs:
         if: always()
         run: mkdir -p target/allure-results && cp -r atg-selenium/target/allure-results/. target/allure-results
 
-      - name: Upload Selenium failure screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: selenium-failure-screenshots-${{ github.run_number }}
-          path: atg-selenium/target/failure-screenshots/
-          if-no-files-found: ignore
-          retention-days: 14
-
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
