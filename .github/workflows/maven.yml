@@ -62,13 +62,53 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Build test report
-        uses: simple-elf/allure-report-action@v1.15
+      - name: Set up Allure CLI
         if: always()
-        with:
-          gh_pages: gh-pages
-          allure_history: allure-history
-          allure_results: ./target/allure-results
+        env:
+          ALLURE_VERSION: 2.44.0
+        run: |
+          curl --fail --location --retry 3 \
+            "https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz" \
+            --output "$RUNNER_TEMP/allure-commandline.tgz"
+          tar -xzf "$RUNNER_TEMP/allure-commandline.tgz" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/allure-${ALLURE_VERSION}/bin" >> "$GITHUB_PATH"
+
+      - name: Build test report
+        if: always()
+        env:
+          ALLURE_REPORT_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+        run: |
+          results_dir=target/allure-results
+          history_dir=allure-history
+          run_report_dir="${history_dir}/${GITHUB_RUN_NUMBER}"
+
+          mkdir -p "$results_dir" "$history_dir"
+          if [ -d gh-pages ]; then
+            cp -a gh-pages/. "$history_dir/"
+          fi
+          if [ -d "${history_dir}/last-history" ]; then
+            mkdir -p "${results_dir}/history"
+            cp -a "${history_dir}/last-history/." "${results_dir}/history/"
+          fi
+
+          cat > "${results_dir}/executor.json" <<EOF
+          {
+            "name": "GitHub Actions",
+            "type": "github",
+            "reportName": "Allure Report with history",
+            "url": "${ALLURE_REPORT_URL}",
+            "reportUrl": "${ALLURE_REPORT_URL}/${GITHUB_RUN_NUMBER}",
+            "buildUrl": "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}",
+            "buildName": "GitHub Actions Run #${GITHUB_RUN_ID}",
+            "buildOrder": "${GITHUB_RUN_NUMBER}"
+          }
+          EOF
+
+          allure generate --clean "$results_dir" -o "$run_report_dir"
+          mkdir -p "${history_dir}/last-history"
+          cp -a "${run_report_dir}/history/." "${history_dir}/last-history/"
+          printf '<!DOCTYPE html><meta charset="utf-8"><meta http-equiv="refresh" content="0; URL=%s/%s/index.html">\n<meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">\n' \
+            "$ALLURE_REPORT_URL" "$GITHUB_RUN_NUMBER" > "${history_dir}/index.html"
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
