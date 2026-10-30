@@ -20,7 +20,7 @@
 ### Built with
 
 ---
-- [OpenJDK 21.0.2](https://openjdk.org/projects/jdk/21/)
+- [OpenJDK 25](https://openjdk.org/projects/jdk/25/)
 - [Maven 3.9.6](https://maven.apache.org/download.cgi)
 - [JUnit 5](https://junit.org/junit5/)
 - [Rest-Assured](https://rest-assured.io/)
@@ -30,7 +30,7 @@
 ### Setup the solution
 
 ---
-Download and install [OpenJDK 21](https://openjdk.org/projects/jdk/21/)
+Download and install [OpenJDK 25](https://openjdk.org/projects/jdk/25/)
 
 Download and install [Apache Maven 3.9.6](https://maven.apache.org/download.cgi).
 -   Controller and data models are kept in `/src/main/java/controllers/` and `/src/main/java/models` and 

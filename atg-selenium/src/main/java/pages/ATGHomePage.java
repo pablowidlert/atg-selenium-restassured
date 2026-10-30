@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import pages.components.AuthModal;
 import pages.components.CookiesModal;
 import pages.components.Header;
+import pages.components.PrivatePurchaseOverview;
 import pages.components.SideMenu;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
@@ -27,6 +28,8 @@ public class ATGHomePage {
     @Getter
     private final Header header;
     @Getter
+    private final PrivatePurchaseOverview privatePurchaseOverview;
+    @Getter
     private final SideMenu sideMenu;
 
     public ATGHomePage(WebDriver driver){
@@ -36,6 +39,7 @@ public class ATGHomePage {
         cookiesModal = new CookiesModal(this.driver);
         header = new Header(this.driver);
         sideMenu = new SideMenu(this.driver);
+        privatePurchaseOverview = new PrivatePurchaseOverview(this.driver);
     }
 
     Config config = ConfigFactory.load();
@@ -43,7 +47,7 @@ public class ATGHomePage {
     private final String couponRaceTemplate = "[data-test-id='coupon-race-RACEID'] [data-test-selected='false'][data-test-scratched='false']:enabled";
     private final String couponRaceTemplateAllButton = "[data-test-id='leg-RACEID-toggle-all']";
     private final By couponViewExpand = By.cssSelector("[data-test-id='expand-coupon']");
-    private final By placeBetButtonLocator = By.cssSelector(".MuiButtonBase-root.MuiButton-root.MuiButton-contained.MuiButton-containedSuccess.MuiButton-sizeLarge");
+    private final By placeBetButtonLocator = By.cssSelector("[data-test-id='play-game-coupon']");
 
     public void visit() {
         driver.get(config.getString("base.uri"));

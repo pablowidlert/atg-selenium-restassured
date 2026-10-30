@@ -16,10 +16,9 @@ public class SideMenu {
         this.driver = driver;
     }
 
-    private final By sideMenuLocator = By.cssSelector("[data-test-id='overlay-side-menu']");
-    private final By horseMenuLocator = By.cssSelector("[data-test-id='horse-verticals-menu']");
-    private final By allGamesMenuLocator = By.cssSelector("[data-test-id='horse-left-menu-sub-menu-toggle-allaspel-new']");
-    private final By v4MenuLocator = By.cssSelector("[data-test-id='horse-left-menu-sub-menu-item-v4']");
+    private final By sideMenuLocator = By.cssSelector("[data-test-id='navbar-header-button']");
+    private final By allGamesMenuLocator = By.id("all-games-toggle");
+    private final By v4MenuLocator = By.xpath("//li[normalize-space(.)='V4']");
 
     public WebElement locator() {
         return driver.findElement(sideMenuLocator);

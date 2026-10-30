@@ -10,8 +10,8 @@
 
     <properties>
         <testTags>fast</testTags>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Selenium WebDriver and Selenium JUnit 5 extensions -->
@@ -23,13 +23,13 @@
         <assertj.version>3.25.1</assertj.version>
 
         <!-- Test execution and reporting -->
-        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.6.1</maven-surefire-plugin.version>
         <allure.version>2.25.0</allure.version>
         <allure.maven.version>2.12.0</allure.maven.version>
-        <aspectj.version>1.9.21</aspectj.version>
+        <aspectj.version>1.9.26</aspectj.version>
 
         <!-- Logging and java library utility -->
-        <lombok.version>1.18.30</lombok.version>
+        <lombok.version>1.18.48</lombok.version>
         <slf4j.version>2.0.11</slf4j.version>
 
     </properties>
@@ -104,11 +104,6 @@
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
-            <artifactId>allure-maven</artifactId>
-            <version>${allure.maven.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.qameta.allure</groupId>
             <artifactId>allure-java-commons</artifactId>
             <version>${allure.version}</version>
             <scope>test</scope>
@@ -166,10 +161,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.12.0</version>
+                <version>3.16.0</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <release>${maven.compiler.target}</release>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>

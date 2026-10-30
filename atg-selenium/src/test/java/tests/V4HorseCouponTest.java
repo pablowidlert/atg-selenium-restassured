@@ -24,6 +24,6 @@ public class V4HorseCouponTest extends BaseTest {
         atgHomePage.selectAllHorsesOnRace(4);
         atgHomePage.placeBet();
         //Assert
-        assertThat(atgHomePage.getAuthModal().getTitle()).isEqualToIgnoringCase("SKAPA KONTO");
+        assertThat(atgHomePage.getPrivatePurchaseOverview().getSignInButton().getText()).isEqualToIgnoringCase("Logga in");
     }
 }

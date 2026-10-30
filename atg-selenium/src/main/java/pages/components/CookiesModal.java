@@ -14,8 +14,8 @@ public class CookiesModal {
     }
 
     // Locators
-    private final By cookiesModal = By.id("onetrust-group-container");
-    private final By acceptAllCookies = By.id("onetrust-accept-btn-handler");
+    private final By cookiesModal = By.cssSelector("[data-test-id='cookieBannerDesktop']");
+    private final By acceptAllCookies = By.cssSelector("[data-test-id='acceptAllCookiesBtn']");
 
     public void acceptAllCookies() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

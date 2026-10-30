@@ -2,3 +2,5 @@
 /atg-selenium/target/
 .allure
 .idea
+.DS_STORE
+settings.json

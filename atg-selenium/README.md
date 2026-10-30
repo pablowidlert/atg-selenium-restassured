@@ -29,7 +29,7 @@
 ### Built with
 
 ---
-- [OpenJDK 21.0.2](https://openjdk.org/projects/jdk/21/)
+- [OpenJDK 25](https://openjdk.org/projects/jdk/25/)
 - [Maven 3.9.6](https://maven.apache.org/download.cgi)
 - [Selenium WebDriver](https://www.selenium.dev/documentation/webdriver/getting_started/install_library/)
 - [JUnit 5](https://junit.org/junit5/)
@@ -40,7 +40,7 @@
 
 ---
 ### Project setup
-Download and install [OpenJDK 21](https://openjdk.org/projects/jdk/21/).
+Download and install [OpenJDK 25](https://openjdk.org/projects/jdk/25/).
 Download and install [Apache Maven 3.9.6](https://maven.apache.org/download.cgi).
 -   Page objects and components are kept in `/src/main/java/pages/` and `/src/main/java/pages/components` and tests in the `/src/test/java/tests` directory, respectively.
 -   We are only testing the "Horse" web page: `https://www.atg.se/`, this is set as the default BASE_URL value in `ATGHomePage.java` from `application.properties`
