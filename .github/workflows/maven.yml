@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       tags:
-        description: 'Test scenario tags'  
+        description: 'Test scenario tags'
   push:
     branches: [ "main" ]
   pull_request:
@@ -20,56 +20,58 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 21
-      uses: actions/setup-java@v3
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: maven
-        
-    - name: Build with Maven (REST-assured)
-      run: mvn test --file ./atg-api/pom.xml
+      - uses: actions/checkout@v4
 
-    - name: Copy results to root target folder
-      run:   |
-              cp -r atg-api/target/allure-results/. target/allure-results
-        
-    - name:  Install Google Chrome # Using shell script to install Google Chrome
-      run:   |
-              chmod +x ./InstallChrome.sh
-                          ./InstallChrome.sh
-                          
-    - name: Build with Maven (Selenium)
-      run: mvn test -Dheadless=true --file ./atg-selenium/pom.xml
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-    - name: Copy results to root target folder
-      run:   |
-              cp -r atg-selenium/target/allure-results/. target/allure-results
+      - name: Build with Maven (REST-assured)
+        run: mvn test --file ./atg-api/pom.xml
 
-    - name: Load test report history
-      uses: actions/checkout@v3
-      if: always()
-      continue-on-error: true
-      with:
-        ref: gh-pages
-        path: gh-pages
+      - name: Copy results to root target folder
+        run: cp -r atg-api/target/allure-results/. target/allure-results
 
-    - name: Build test report
-      uses: simple-elf/allure-report-action@v1.7
-      if: always()
-      with:
-        gh_pages: gh-pages
-        allure_history: allure-history
-        allure_results: ./target/allure-results
-    - name: Publish test report
-      uses: peaceiris/actions-gh-pages@v3
-      if: always()
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_branch: gh-pages
-        publish_dir: allure-history
+      - name: Set up Google Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Verify Chrome
+        run: google-chrome --version
+
+      - name: Build with Maven (Selenium)
+        run: mvn test -Dheadless=true --file ./atg-selenium/pom.xml
+
+      - name: Copy results to root target folder
+        run: cp -r atg-selenium/target/allure-results/. target/allure-results
+
+      - name: Load test report history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: ./target/allure-results
+
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
