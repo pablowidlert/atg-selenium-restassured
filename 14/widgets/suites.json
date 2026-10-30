@@ -1,0 +1,1 @@
+{"total":2,"items":[{"uid":"c105ddf70252ead6c0a2418ea399ffb6","name":"Pet Endpoint Tests","statistic":{"failed":0,"broken":0,"skipped":0,"passed":8,"unknown":0,"total":8}},{"uid":"dc99ae23ad6ca9b6efb5c9514cde7489","name":"e2e Web Tests","statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1}}]}
