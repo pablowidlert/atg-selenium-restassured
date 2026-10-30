@@ -22,10 +22,14 @@ public class BaseTest {
     void setup() {
         //Arrange
         boolean isHeadless = Boolean.valueOf(System.getProperty("headless"));
-        if(isHeadless) {
+        if (isHeadless) {
             System.out.println("Using headless Chrome");
             options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--disable-gpu");
         }
+
         driver = new ChromeDriver(options);
         atgHomePage = new ATGHomePage(driver);
         atgHomePage.visit();
@@ -34,6 +38,8 @@ public class BaseTest {
 
     @AfterEach
     void tearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
