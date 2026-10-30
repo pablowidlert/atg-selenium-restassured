@@ -36,7 +36,8 @@ jobs:
         run: mvn test --file ./atg-api/pom.xml
 
       - name: Copy results to root target folder
-        run: cp -r atg-api/target/allure-results/. target/allure-results
+        if: always()
+        run: mkdir -p target/allure-results && cp -r atg-api/target/allure-results/. target/allure-results
 
       - name: Set up Google Chrome
         uses: browser-actions/setup-chrome@v1
@@ -50,7 +51,8 @@ jobs:
         run: mvn test -Dheadless=true --file ./atg-selenium/pom.xml
 
       - name: Copy results to root target folder
-        run: cp -r atg-selenium/target/allure-results/. target/allure-results
+        if: always()
+        run: mkdir -p target/allure-results && cp -r atg-selenium/target/allure-results/. target/allure-results
 
       - name: Load test report history
         uses: actions/checkout@v4
